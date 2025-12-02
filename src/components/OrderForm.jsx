@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './OrderForm.css';
+import './css/OrderForm.css';
 
 function OrderForm({ onOrderSubmit }) {
   const [formData, setFormData] = useState({
@@ -163,10 +163,12 @@ function OrderForm({ onOrderSubmit }) {
               >
                 <option value="">Select an item</option>
                 <option value="Book">Book</option>
+                <option value="Book">CR Book</option>
                 <option value="Pen">Pen</option>
                 <option value="Pencil">Pencil</option>
                 <option value="Eraser">Eraser</option>
                 <option value="PensilBox">PensilBox</option>
+                <option value="PensilBox">Others</option>
               </select>
             </div>
 

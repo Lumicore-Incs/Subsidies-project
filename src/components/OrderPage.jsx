@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import OrderForm from './OrderForm';
 import OrderList from './OrderList';
-import './OrderPage.css';
+import './css/OrderPage.css';
 
 function OrderPage() {
   const [orders, setOrders] = useState([]);

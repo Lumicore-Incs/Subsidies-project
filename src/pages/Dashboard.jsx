@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import './Dashboard.css';
+import './css/Dashboard.css';
 
 function Dashboard({ orders }) {
   // Calculate item statistics

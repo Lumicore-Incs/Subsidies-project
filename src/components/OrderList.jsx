@@ -1,4 +1,4 @@
-import './OrderList.css';
+import './css/OrderList.css';
 
 function OrderList({ orders }) {
   return (

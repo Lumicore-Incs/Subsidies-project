@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import OrderForm from '../components/OrderForm';
 import OrderList from '../components/OrderList';
-import './OrdersPage.css';
+import './css/OrdersPage.css';
 
 function OrdersPage({ orders, onOrderSubmit }) {
   return (
