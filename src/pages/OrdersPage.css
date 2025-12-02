@@ -1,0 +1,18 @@
+.orders-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+@media (max-width: 1200px) {
+  .orders-page {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .orders-page {
+    gap: 20px;
+  }
+}

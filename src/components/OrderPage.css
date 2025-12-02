@@ -1,0 +1,13 @@
+.order-page {
+  display: flex;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+@media (max-width: 968px) {
+  .order-page {
+    flex-direction: column;
+  }
+}
