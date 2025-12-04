@@ -10,10 +10,10 @@ function OrderList({ orders }) {
         </div>
       ) : (
         <div className="orders-list">
-          {orders.map((order, index) => (
+          {[...orders].reverse().map((order, index) => (
             <div key={index} className="order-card">
               <div className="order-header">
-                <h3>Order #{index + 1}</h3>
+                <h3>Order #{orders.length - index}</h3>
                 <span className="customer-id">{order.customerId}</span>
               </div>
               <div className="order-details">

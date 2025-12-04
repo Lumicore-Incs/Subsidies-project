@@ -162,6 +162,7 @@
 
   .orders-list {
     max-height: 500px;
+    padding-right: 5px;
   }
 
   .order-card {
@@ -190,10 +191,64 @@
 
   .detail-label {
     min-width: auto;
+    font-size: 0.95rem;
   }
 
   .detail-value {
     text-align: left;
+    font-size: 0.95rem;
+  }
+
+  .order-items-list li {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .orders-section {
+    padding: 15px;
+    border-radius: 15px;
+  }
+
+  .orders-section h2 {
+    font-size: 1.3rem;
+    padding-bottom: 8px;
+  }
+
+  .orders-list {
+    max-height: 400px;
+    gap: 15px;
+  }
+
+  .order-card {
+    padding: 12px;
+  }
+
+  .order-header h3 {
+    font-size: 1rem;
+  }
+
+  .customer-id {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+
+  .detail-label {
+    font-size: 0.85rem;
+  }
+
+  .detail-value {
+    font-size: 0.85rem;
+  }
+
+  .order-items-list li {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+
+  .no-orders p {
+    font-size: 1rem;
   }
 }
 

@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useToast } from './Toast';
+import { getItems, createOrder } from '../services/api';
 import './css/OrderForm.css';
 
 function OrderForm({ onOrderSubmit }) {
+  const { showToast } = useToast();
   const [formData, setFormData] = useState({
     customerName: '',
     address: '',
@@ -9,10 +12,29 @@ function OrderForm({ onOrderSubmit }) {
   });
 
   const [items, setItems] = useState([]);
+  const [availableItems, setAvailableItems] = useState([]);
   const [currentItem, setCurrentItem] = useState({
     itemName: '',
     quantity: ''
   });
+
+  // Fetch available items from API
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const result = await getItems();
+        
+        if (result.success && result.data) {
+          setAvailableItems(result.data);
+        }
+      } catch (error) {
+        console.error('Error fetching items:', error);
+        showToast('Failed to load items', 'error');
+      }
+    };
+
+    fetchItems();
+  }, []);
 
   // Generate unique customer ID
   const generateCustomerId = () => {
@@ -44,13 +66,13 @@ function OrderForm({ onOrderSubmit }) {
     e.preventDefault();
     
     if (!currentItem.itemName || !currentItem.quantity) {
-      alert('Please select an item and enter quantity');
+      showToast('Please select an item and enter quantity', 'warning');
       return;
     }
 
     setItems(prev => [...prev, { ...currentItem }]);
     setCurrentItem({ itemName: '', quantity: '' });
-    alert('Item added successfully!');
+    showToast('Item added successfully!', 'success');
   };
 
   // Remove item from the list
@@ -59,40 +81,65 @@ function OrderForm({ onOrderSubmit }) {
   };
 
   // Handle final order submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Validation
     if (!formData.customerName || !formData.address || !formData.contactNumber) {
-      alert('Please fill in customer details');
+      showToast('Please fill in customer details', 'warning');
       return;
     }
 
     if (items.length === 0) {
-      alert('Please add at least one item');
+      showToast('Please add at least one item', 'warning');
       return;
     }
 
-    // Create new order with unique customer ID
-    const newOrder = {
-      customerId: generateCustomerId(),
-      ...formData,
-      items: items,
-      orderDate: new Date().toLocaleString()
-    };
+    try {
+      // Prepare order data for API
+      const orderData = {
+        customerName: formData.customerName,
+        address: formData.address,
+        contactNumber: formData.contactNumber,
+        items: items.map(item => {
+          // Find the item ID from availableItems
+          const foundItem = availableItems.find(ai => ai.itemName === item.itemName);
+          return {
+            itemId: foundItem ? foundItem.id : null,
+            qty: parseInt(item.quantity)
+          };
+        })
+      };
 
-    onOrderSubmit(newOrder);
-    
-    // Reset form
-    setFormData({
-      customerName: '',
-      address: '',
-      contactNumber: ''
-    });
-    setItems([]);
-    setCurrentItem({ itemName: '', quantity: '' });
-
-    alert('Order submitted successfully!');
+      // Call the API
+      const response = await createOrder(orderData);
+      
+      if (response.success) {
+        showToast(`Order Created Successfully! Order ID: ${response.data.id} | Customer: ${response.data.customerName} | Total Items: ${items.length}`, 'success');
+        
+        // Create new order for local state
+        const newOrder = {
+          customerId: generateCustomerId(),
+          ...formData,
+          items: items,
+          orderDate: new Date().toLocaleString()
+        };
+        onOrderSubmit(newOrder);
+        
+        // Reset form
+        setFormData({
+          customerName: '',
+          address: '',
+          contactNumber: ''
+        });
+        setItems([]);
+        setCurrentItem({ itemName: '', quantity: '' });
+      } else {
+        showToast('Order Creation Failed: ' + (response.message || 'Unknown error'), 'error');
+      }
+    } catch (error) {
+      showToast('Order Creation Error: ' + error.message, 'error');
+    }
   };
 
   return (
@@ -162,13 +209,11 @@ function OrderForm({ onOrderSubmit }) {
                 onChange={handleItemChange}
               >
                 <option value="">Select an item</option>
-                <option value="Book">Book</option>
-                <option value="Book">CR Book</option>
-                <option value="Pen">Pen</option>
-                <option value="Pencil">Pencil</option>
-                <option value="Eraser">Eraser</option>
-                <option value="PensilBox">PensilBox</option>
-                <option value="PensilBox">Others</option>
+                {availableItems.map((item) => (
+                  <option key={item.id} value={item.itemName}>
+                    {item.itemName}
+                  </option>
+                ))}
               </select>
             </div>
 

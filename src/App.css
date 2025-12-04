@@ -6,27 +6,105 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #f5f5f5;
   min-height: 100vh;
-  padding: 20px;
+  padding: 0;
 }
 
-.app-container {
-  max-width: 1400px;
-  margin: 0 auto;
+/* Modern Loader Animation */
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.05) 0%, rgba(153, 27, 27, 0.05) 100%);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
 }
+
+.modern-loader {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-circle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  animation: rotate 2s linear infinite;
+}
+
+.loader-circle:nth-child(1) {
+  border-top-color: #c4141b;
+  animation-duration: 1.5s;
+}
+
+.loader-circle:nth-child(2) {
+  width: 80%;
+  height: 80%;
+  border-top-color: #c50c12;
+  animation-duration: 2s;
+  animation-direction: reverse;
+}
+
+.loader-circle:nth-child(3) {
+  width: 60%;
+  height: 60%;
+  border-top-color: #c7070d;
+  animation-duration: 1.2s;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 
 .header {
+  margin-top: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
+  color: rgb(209, 23, 23);
   margin-bottom: 30px;
   padding: 30px 20px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(126, 119, 119, 0.368);
   border-radius: 20px;
   backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(10, 9, 9, 0.392);
+  margin-left: 10rem;
+  margin-right: 10rem;
+}
+
+@media (max-width: 1024px) {
+  .header {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
 }
 
 .header > div:first-child {
@@ -117,6 +195,14 @@ body {
   animation: fadeInUp 0.6s ease-out;
 }
 
+.admin-link-overlay {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  animation: fadeInUp 0.6s ease-out;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -128,7 +214,8 @@ body {
   }
 }
 
-.public-link-btn {
+.public-link-btn,
+.admin-link-btn {
   background: white;
   color: #667eea;
   border: none;
@@ -144,7 +231,8 @@ body {
   gap: 10px;
 }
 
-.public-link-btn:hover {
+.public-link-btn:hover,
+.admin-link-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -160,9 +248,9 @@ body {
 }
 
 .nav-btn {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(213, 15, 15, 0.7);
   color: white;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(105, 98, 98, 0.555);
   padding: 12px 30px;
   border-radius: 50px;
   font-size: 1rem;
@@ -184,7 +272,7 @@ body {
 .nav-btn.active {
   background: white;
   color: #667eea;
-  border-color: white;
+  border-color: rgba(107, 103, 103, 0.449);
   box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
 }
 
@@ -218,6 +306,9 @@ body {
     gap: 15px;
     padding: 20px 15px;
     margin-bottom: 20px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-radius: 15px;
   }
 
   .header > div:first-child {
@@ -235,6 +326,16 @@ body {
   .user-section {
     width: 100%;
     justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .welcome-text {
+    font-size: 0.9rem;
+  }
+
+  .logout-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
   }
 
   .navigation {
@@ -253,9 +354,32 @@ body {
   .nav-icon {
     font-size: 1rem;
   }
+
+  .public-link-overlay,
+  .admin-link-overlay {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .public-link-btn,
+  .admin-link-btn {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 480px) {
+  body {
+    padding: 5px;
+  }
+
+  .header {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    padding: 15px 12px;
+    margin-top: 0.5rem;
+  }
+
   .header h1 {
     font-size: 1.5rem;
   }
@@ -269,16 +393,42 @@ body {
     gap: 10px;
   }
 
+  .welcome-text {
+    font-size: 0.85rem;
+  }
+
   .logout-btn {
     width: 100%;
     justify-content: center;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .logout-btn span {
+    font-size: 1rem;
   }
 
   .navigation {
     flex-direction: column;
+    gap: 8px;
   }
 
   .nav-btn {
     width: 100%;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+
+  .public-link-overlay,
+  .admin-link-overlay {
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .public-link-btn,
+  .admin-link-btn {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    border-radius: 40px;
   }
 }

@@ -5,26 +5,24 @@ function Dashboard({ orders }) {
   // Calculate item statistics
   const itemStats = useMemo(() => {
     const stats = {};
-    const itemTypes = ['Book', 'Pen', 'Pencil', 'Eraser', 'PensilBox'];
     
-    // Initialize all items with 0
-    itemTypes.forEach(item => {
-      stats[item] = 0;
-    });
-
     // Count items from orders
     orders.forEach(order => {
       if (order.items && order.items.length > 0) {
         order.items.forEach(item => {
-          if (stats[item.itemName] !== undefined) {
-            stats[item.itemName] += parseInt(item.quantity) || 0;
+          const itemName = item.itemName;
+          if (!stats[itemName]) {
+            stats[itemName] = 0;
           }
+          stats[itemName] += parseInt(item.quantity) || 0;
         });
       } else if (order.itemName) {
         // Support old format
-        if (stats[order.itemName] !== undefined) {
-          stats[order.itemName] += parseInt(order.quantity) || 0;
+        const itemName = order.itemName;
+        if (!stats[itemName]) {
+          stats[itemName] = 0;
         }
+        stats[itemName] += parseInt(order.quantity) || 0;
       }
     });
 
@@ -33,7 +31,6 @@ function Dashboard({ orders }) {
 
   const totalOrders = orders.length;
   const totalItems = Object.values(itemStats).reduce((sum, count) => sum + count, 0);
-  const maxCount = Math.max(...Object.values(itemStats), 1);
 
   return (
     <div className="dashboard-container">
@@ -63,25 +60,26 @@ function Dashboard({ orders }) {
       <div className="items-statistics">
         <h3>Item Distribution</h3>
         <div className="items-progress-list">
-          {Object.entries(itemStats).map(([item, count]) => {
-            const percentage = maxCount > 0 ? (count / maxCount) * 100 : 0;
-            return (
-              <div key={item} className="progress-item">
-                <div className="progress-header">
-                  <span className="item-name">{item}</span>
-                  <span className="item-count">{count}</span>
-                </div>
-                <div className="progress-bar-container">
-                  <div 
-                    className="progress-bar-fill" 
-                    style={{ width: `${percentage}%` }}
-                  >
-                    {count > 0 && <span className="progress-label">{percentage.toFixed(0)}%</span>}
+          {Object.entries(itemStats)
+            .sort(([, a], [, b]) => b - a) // Sort by count descending
+            .map(([item, count]) => {
+              const percentage = totalItems > 0 ? (count / totalItems) * 100 : 0;
+              return (
+                <div key={item} className="progress-item">
+                  <div className="progress-header">
+                    <span className="item-name">{item}</span>
+                    <span className="item-count">{count} ({percentage.toFixed(1)}%)</span>
+                  </div>
+                  <div className="progress-bar-container">
+                    <div 
+                      className="progress-bar-fill" 
+                      style={{ width: `${percentage}%` }}
+                    >
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
 

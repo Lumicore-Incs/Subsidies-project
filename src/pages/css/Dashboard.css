@@ -3,6 +3,32 @@
   border-radius: 20px;
   padding: 30px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  margin-left: 10rem;
+  margin-right: 10rem;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-container {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-container {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    padding: 15px;
+    border-radius: 15px;
+  }
 }
 
 .dashboard-header {
@@ -25,6 +51,7 @@
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   margin-bottom: 30px;
+  color: #333;
 }
 
 .stat-card {
@@ -52,10 +79,12 @@
 .stat-info h3 {
   font-size: 2.5rem;
   font-weight: 700;
+  color: black;
   margin-bottom: 5px;
 }
 
 .stat-info p {
+  color: black;
   font-size: 0.95rem;
   opacity: 0.9;
 }
@@ -156,10 +185,6 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-  .dashboard-container {
-    padding: 20px;
-  }
-
   .dashboard-header h2 {
     font-size: 1.5rem;
   }
@@ -171,6 +196,7 @@
 
   .stat-card {
     padding: 20px;
+    flex-direction: row;
   }
 
   .stat-icon {
@@ -191,6 +217,83 @@
 
   .progress-bar-container {
     height: 25px;
+  }
+
+  .item-count {
+    font-size: 0.85rem;
+    padding: 3px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .dashboard-header p {
+    font-size: 0.9rem;
+  }
+
+  .stat-card {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .stat-icon {
+    font-size: 2rem;
+  }
+
+  .stat-info h3 {
+    font-size: 1.8rem;
+  }
+
+  .stat-info p {
+    font-size: 0.85rem;
+  }
+
+  .items-statistics {
+    padding: 15px;
+  }
+
+  .items-statistics h3 {
+    font-size: 1rem;
+  }
+
+  .progress-item {
+    padding: 12px;
+  }
+
+  .item-name {
+    font-size: 0.9rem;
+  }
+
+  .item-count {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+  }
+
+  .progress-bar-container {
+    height: 20px;
+  }
+
+  .progress-bar-fill {
+    min-width: 40px;
+  }
+
+  .empty-state {
+    padding: 40px 15px;
+  }
+
+  .empty-icon {
+    font-size: 3rem;
+  }
+
+  .empty-state h3 {
+    font-size: 1.2rem;
+  }
+
+  .empty-state p {
+    font-size: 0.9rem;
   }
 }
 

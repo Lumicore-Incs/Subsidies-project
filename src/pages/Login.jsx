@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { useToast } from '../components/Toast';
+import { loginUser } from '../services/api';
 import './css/Login.css';
 
 function Login({ onLogin }) {
+  const { showToast } = useToast();
   const [credentials, setCredentials] = useState({
-    username: 'adit',
-    password: '11111111'
+    email: '',
+    password: ''
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -23,21 +26,25 @@ function Login({ onLogin }) {
     setError('');
     setIsLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      if (credentials.username && credentials.password) {
-        // Simple validation - you can replace with actual authentication
-        if (credentials.password.length >= 6) {
-          onLogin(credentials.username);
-        } else {
-          setError('Password must be at least 6 characters');
-          setIsLoading(false);
-        }
-      } else {
-        setError('Please fill in all fields');
-        setIsLoading(false);
+    try {
+      const result = await loginUser(credentials.email, credentials.password);
+      
+      // Save token to localStorage
+      if (result.data && result.data.token) {
+        localStorage.setItem('authToken', result.data.token);
+        localStorage.setItem('userEmail', credentials.email);
       }
-    }, 1000);
+
+      showToast('Login successful!', 'success');
+      onLogin(credentials.email);
+    } catch (error) {
+      console.error('Login error:', error);
+      const errorMessage = error.message || 'Unable to connect to server. Please try again.';
+      setError(errorMessage);
+      showToast(errorMessage, 'error');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -68,18 +75,18 @@ function Login({ onLogin }) {
           )}
 
           <div className="form-group">
-            <label htmlFor="username">
+            <label htmlFor="email">
               <span className="label-icon">👤</span>
-              Username
+              Email / Username
             </label>
             <div className="input-wrapper">
               <input
                 type="text"
-                id="username"
-                name="username"
-                value={credentials.username}
+                id="email"
+                name="email"
+                value={credentials.email}
                 onChange={handleChange}
-                placeholder="Enter your username"
+                placeholder="Enter your email or username"
                 required
                 disabled={isLoading}
               />
