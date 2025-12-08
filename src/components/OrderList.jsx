@@ -1,6 +1,35 @@
+import { useState } from 'react';
+import { deleteOrder } from '../services/api';
+import { useToast } from './Toast';
 import './css/OrderList.css';
 
-function OrderList({ orders }) {
+function OrderList({ orders, onOrderDelete }) {
+  const [deletingId, setDeletingId] = useState(null);
+  const { showToast } = useToast();
+
+  const handleDelete = async (order) => {
+    try {
+      setDeletingId(order.id);
+      await deleteOrder(order.id);
+      
+      // Call parent callback to refresh orders first
+      if (onOrderDelete) {
+        onOrderDelete(order.id);
+      }
+
+      // Show toast after a small delay to ensure UI updates
+      setTimeout(() => {
+        showToast(`Order for ${order.customerName} deleted successfully!`, 'success');
+      }, 300);
+      
+    } catch (error) {
+      console.error('Failed to delete order:', error);
+      showToast('Failed to delete order: ' + error.message, 'error');
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
   return (
     <div className="orders-section">
       <h2>Order History</h2>
@@ -14,7 +43,17 @@ function OrderList({ orders }) {
             <div key={index} className="order-card">
               <div className="order-header">
                 <h3>Order #{orders.length - index}</h3>
-                <span className="customer-id">{order.customerId}</span>
+                <div className="order-header-actions">
+                  <span className="customer-id">{order.customerId}</span>
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleDelete(order)}
+                    disabled={deletingId === order.id}
+                    title="Delete Order"
+                  >
+                    {deletingId === order.id ? '⏳' : '🗑️'}
+                  </button>
+                </div>
               </div>
               <div className="order-details">
                 <div className="detail-row">

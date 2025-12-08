@@ -16,3 +16,43 @@
   font-display: swap;
   font-size: xx-large;
 }
+
+
+/*--------SINHA-SAMADI------------*/
+@font-face {
+  font-family: 'SAMADI';
+  src: url('/public/fonts/SINHA-SAMADI-2012.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* අවශ්‍යනම් bold version එකත් add කරන්න */
+@font-face {
+  font-family: 'SAMADI';
+  src: url('/public/fonts/SINHA-SAMADI-2012.TTF') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+  font-size: xx-large;
+}
+
+
+/*--------FMGanganee------------*/
+@font-face {
+  font-family: 'FMGanganee';
+  src: url('/public/fonts/FMGanganee x.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* අවශ්‍යනම් bold version එකත් add කරන්න */
+@font-face {
+  font-family: 'FMGanganee';
+  src: url('/public/fonts/FMGanganee x.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+  font-size: xx-large;
+}

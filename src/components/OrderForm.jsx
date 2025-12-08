@@ -165,14 +165,14 @@ function OrderForm({ onOrderSubmit }) {
         <div className="form-group">
           <label htmlFor="address">
             <span className="label-icon">📍</span>
-            Address
+            Donation Barnch
           </label>
           <textarea
             id="address"
             name="address"
             value={formData.address}
             onChange={handleChange}
-            placeholder="Enter delivery address"
+            placeholder="Enter delivery branch"
             rows="3"
             required
           />

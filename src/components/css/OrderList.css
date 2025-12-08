@@ -75,6 +75,12 @@
   font-size: 1.2rem;
 }
 
+.order-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .customer-id {
   background: #667eea;
   color: white;
@@ -83,6 +89,39 @@
   font-size: 0.85rem;
   font-weight: 600;
   font-family: 'Courier New', monospace;
+}
+
+.delete-btn {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+}
+
+.delete-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ff5252 0%, #d84256 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
+.delete-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(255, 107, 107, 0.3);
+}
+
+.delete-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .order-details {

@@ -144,6 +144,17 @@ function App() {
     );
   }
 
+  // Show public dashboard at root path
+  if (currentPath === '/') {
+    return (
+      <ToastProvider>
+        <div className="app-container">
+          <PublicDashboard orders={orders} />
+        </div>
+      </ToastProvider>
+    );
+  }
+
   // Show admin panel if logged in and on /admin path
   if (currentPath === '/admin' || currentPath.startsWith('/admin')) {
     if (!isLoggedIn) {
@@ -195,7 +206,7 @@ function App() {
     );
   }
 
-  // Default: Show public dashboard at base URL
+  // Default: Show public dashboard
   return (
     <ToastProvider>
       <div className="app-container">

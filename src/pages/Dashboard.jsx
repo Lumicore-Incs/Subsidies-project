@@ -68,7 +68,7 @@ function Dashboard({ orders }) {
                 <div key={item} className="progress-item">
                   <div className="progress-header">
                     <span className="item-name">{item}</span>
-                    <span className="item-count">{count} ({percentage.toFixed(1)}%)</span>
+                    <span className="item-count">{count} </span>
                   </div>
                   <div className="progress-bar-container">
                     <div 

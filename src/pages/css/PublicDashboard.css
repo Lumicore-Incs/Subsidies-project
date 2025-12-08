@@ -7,6 +7,40 @@
   min-height: 100vh;
   width: 100%;
   font-family: 'Poppins', 'Poppins Fallback', sans-serif;
+  position: relative;
+}
+
+/* Public Login Button */
+.public-login-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #C4141B 0%, #8B0000 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(196, 20, 27, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.public-login-btn:hover {
+  background: linear-gradient(135deg, #d41a22 0%, #a00000 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(196, 20, 27, 0.4);
+}
+
+.public-login-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(196, 20, 27, 0.3);
 }
 
 .public-dashboard-container {
@@ -511,20 +545,38 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .public-dashboard-main-section {
-    padding: 20px 0;
+  .public-login-btn {
+    top: 15px;
+    right: 15px;
+    padding: 10px 18px;
+    font-size: 0.85rem;
   }
 
   .public-dashboard-main-section {
-  background-image: url("/assets/mobileBackground.png");
-  opacity: 0.8;
-  background-size: cover;
-  background-position: cenriter;
-  background-attachment: fixed;
-  min-height: 100vh;
-  width: 100%;
-  font-family: 'Poppins', 'Poppins Fallback', sans-serif;
-}
+    padding: 20px 0;
+    background-image: url("/assets/mobileBackground.png");
+    background-size: cover;
+    background-position: center center;
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    width: 100%;
+    font-family: 'Poppins', 'Poppins Fallback', sans-serif;
+    position: relative;
+  }
+
+  /* Remove duplicate styles */
+  .public-dashboard-main-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    opacity: 0.8;
+    z-index: -1;
+  }
 
   .public-dashboard-container {
     padding: 20px 15px;
@@ -582,13 +634,13 @@
     font-size: 20px;
   }
 
-  .text-section > p:nth-child(1) {
+  .text-section>p:nth-child(1) {
     position: relative;
     width: 100%;
     left: 0;
   }
 
-  .text-section > p:nth-child(3) {
+  .text-section>p:nth-child(3) {
     font-size: x-large;
   }
 
@@ -708,13 +760,13 @@
     margin-top: 1rem;
   }
 
-  .text-section > p:nth-child(1) {
+  .text-section>p:nth-child(1) {
     position: relative;
     width: 100%;
     left: 0;
   }
 
-  .text-section > p:nth-child(3) {
+  .text-section>p:nth-child(3) {
     font-size: large;
   }
 
@@ -795,5 +847,464 @@
 
   .no-data h3 {
     font-size: 1.3rem;
+  }
+}
+
+/* Contact Section Styles */
+.contact-section-wrapper {
+  background: linear-gradient(135deg, #f8f8f9 0%, #f8f8f9 100%);
+  padding: 60px 20px;
+  width: 100%;
+}
+
+.contact-section {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.contact-section h2 {
+  font-family: 'FMGanganee';
+  font-size: x-large;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: #080808;
+  border-radius: 4rem;
+}
+
+/* Contact Main Container - Two Column Layout */
+.contact-main-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 40px;
+  padding: 0 20px;
+  align-items: start;
+}
+
+/* Left Side - Donation Items */
+.donation-items-section {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  position: sticky;
+  top: 20px;
+}
+
+
+
+.donation-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.donation-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 5px 15px;
+  background: linear-gradient(135deg, #f8f8f9 0%, #ebebeb 100%);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  border-left: 4px solid #c4141b;
+}
+
+.donation-item:hover {
+  transform: translateX(10px);
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 100%);
+  box-shadow: 0 4px 12px rgba(196, 20, 27, 0.2);
+}
+
+.donation-item .item-bullet {
+  font-size: 1.5rem;
+  color: #c4141b;
+  font-weight: bold;
+}
+
+.donation-item .item-text {
+  font-family: 'FMRashmee';
+  font-size: 1.2rem;
+  color: #080808;
+  font-weight: bold;
+}
+
+/* Right Side - Contact Grid */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  padding: 0 20px;
+  justify-items: center;
+}
+
+.contact-grid2 {
+  margin-top: 2%;
+  gap: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.contact-card {
+  background: #dbd8d8;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 8px 25px rgba(218, 214, 214, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e7e4e4;
+  animation: fadeInUp 0.6s ease-out;
+  width: 100%;
+  max-width: 400px;
+}
+
+.contact-card:nth-last-child(-n+2) {
+  grid-column: span 1;
+}
+
+@supports (grid-template-columns: subgrid) {
+  .contact-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .contact-card:nth-last-child(-n+2):first-child:nth-last-child(2),
+  .contact-card:nth-last-child(-n+2):first-child:nth-last-child(2)~.contact-card {
+    grid-column: span 1;
+  }
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+}
+
+.contact-header {
+  font-family: 'SAMADI';
+  font-size: xx-large;
+  font-weight: bold;
+  color: #080808;
+  text-align: center;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-label {
+  font-family: 'Noto Sans Sinhala', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.contact-numbers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-number {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+  background: linear-gradient(135deg, #d05f63 0%, #C4141B 100%);
+  border-radius: 10px;
+  color: #f7f3f3;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-family: 'FMGanganee';
+  font-size: large;
+}
+
+.contact-number10 {
+  padding: 5px 60px;
+}
+
+.phone-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.contact-number:hover {
+  background: linear-gradient(135deg, #d05f63 0%, #C4141B 100%);
+  color: white;
+  transform: translateX(7px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  font-size: large;
+}
+
+.contact-number:hover .phone-icon {
+  transform: scale(1.2) rotate(15deg);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Responsive for Contact Section */
+@media (max-width: 768px) {
+  .contact-section-wrapper {
+    padding: 40px 15px;
+  }
+
+  .contact-grid2 {
+  margin-top: 0;
+  padding: 30px 15px;
+  gap: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+  .contact-section h2 {
+    font-size: xx-large;
+    margin-bottom: 30px;
+  }
+
+  .contact-main-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .donation-items-section {
+    position: relative;
+    top: 0;
+  }
+
+  .donation-items-section h3 {
+    font-size: 1.3rem;
+  }
+
+  .donation-item .item-text {
+    font-size: 1.1rem;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 10px;
+  }
+
+
+
+  .contact-card {
+    padding: 20px;
+  }
+
+  .contact-header {
+    font-size: 26px;
+  }
+
+  .contact-label {
+    font-size: 1rem;
+  }
+
+  .contact-number {
+     padding: 8px 40px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #d05f63 0%, #C4141B 100%);
+  border-radius: 10px;
+  color: #f7f3f3;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-family: 'FMGanganee';
+  font-size: large;
+}
+
+.contact-number10 {
+  padding: 5px 35px;
+}
+
+
+}
+
+@media (max-width: 480px) {
+  .contact-section-wrapper {
+    padding: 30px 10px;
+  }
+
+  .contact-section h2 {
+    font-size: x-large;
+    margin-bottom: 25px;
+  }
+
+  .contact-main-container {
+    gap: 25px;
+  }
+
+  .donation-items-section {
+    padding: 20px;
+  }
+
+  .donation-items-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+
+  .donation-item {
+    padding: 5px 12px;
+    gap: 10px;
+  }
+
+  .donation-item .item-text {
+    font-size: 1rem;
+  }
+
+  .contact-card {
+    padding: 15px;
+  }
+
+  .contact-header {
+    padding-bottom: 10px;
+  }
+
+  .contact-label {
+    font-size: 0.95rem;
+  }
+
+ 
+}
+
+/* Footer / Copyright Section */
+.public-footer {
+  color: #0a0a0a;
+  padding: 60px 20px 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.footer-logo {
+  width: 120px;
+  height: auto;
+  margin-bottom: 10px;
+  filter: brightness(0) invert(1);
+}
+
+.footer-tagline {
+  font-family: 'FMRashmee';
+  font-size: 1.1rem;
+  color: #C4141B;
+  font-weight: 600;
+}
+
+.footer-section h4 {
+  font-family: 'FMGanganee';
+  font-size: 1.3rem;
+  color: #C4141B;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.footer-section p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.8;
+  margin: 5px 0;
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 30px;
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-size: 0.9rem;
+  color: rgba(3, 3, 3, 0.83);
+  margin: 10px 0;
+}
+
+.footer-credits {
+  font-size: 0.85rem;
+}
+
+.footer-credits a {
+  color: #C4141B;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.footer-credits a:hover {
+  color: #ff6b6b;
+  text-decoration: underline;
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+  .public-footer {
+    padding: 40px 15px 15px;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    margin: 0 auto 10px;
+  }
+
+  .footer-section h4 {
+    font-size: 1.2rem;
+  }
+
+  .footer-section p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-tagline {
+    font-size: 1rem;
+  }
+
+  .footer-section h4 {
+    font-size: 1.1rem;
+  }
+
+  .footer-bottom p {
+    font-size: 0.8rem;
   }
 }

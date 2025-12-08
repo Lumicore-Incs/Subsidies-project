@@ -1,6 +1,6 @@
 // Base URL for API
-const BASE_URL = 'http://localhost:8080';
-// const BASE_URL = 'https://api.weadits.com/demo-0.0.1-SNAPSHOT';
+// const BASE_URL = 'http://localhost:8080';
+const BASE_URL = 'https://api.weadits.com/demo-0.0.1-SNAPSHOT';
 
 
 // API Service Functions
@@ -15,6 +15,8 @@ export const loginUser = async (email, password) => {
   try {
     const response = await fetch(`${BASE_URL}/user/login`, {
       method: 'POST',
+      mode: 'cors',
+      credentials: 'omit',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -51,6 +53,8 @@ export const getItems = async () => {
   try {
     const response = await fetch(`${BASE_URL}/orders/item`, {
       method: 'GET',
+      mode: 'cors',
+      credentials: 'omit',
       headers: {
         'Content-Type': 'application/json',
       }
@@ -83,6 +87,8 @@ export const createOrder = async (orderData) => {
 
     const response = await fetch(`${BASE_URL}/orders`, {
       method: 'POST',
+      mode: 'cors',
+      credentials: 'omit',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${authToken}`
@@ -110,6 +116,8 @@ export const getOrders = async () => {
   try {
     const response = await fetch(`${BASE_URL}/orders`, {
       method: 'GET',
+      mode: 'cors',
+      credentials: 'omit',
       headers: {
         'Content-Type': 'application/json',
       }
@@ -134,20 +142,32 @@ export const getOrders = async () => {
  */
 export const deleteOrder = async (orderId) => {
   try {
+    const authToken = localStorage.getItem('authToken');
+    
     const response = await fetch(`${BASE_URL}/orders/${orderId}`, {
       method: 'DELETE',
+      mode: 'cors',
+      credentials: 'omit',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`
       }
     });
 
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || 'Failed to delete order');
+    // For successful deletion, response might be text or json
+    let result;
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+      result = await response.json();
+    } else {
+      result = await response.text();
     }
 
-    return result;
+    if (!response.ok) {
+      throw new Error(typeof result === 'string' ? result : result.message || 'Failed to delete order');
+    }
+
+    return { success: true, message: typeof result === 'string' ? result : result.message };
   } catch (error) {
     throw error;
   }
@@ -161,6 +181,8 @@ export const getDashboardStats = async () => {
   try {
     const response = await fetch(`${BASE_URL}/dashboard/stats`, {
       method: 'GET',
+      mode: 'cors',
+      credentials: 'omit',
       headers: {
         'Content-Type': 'application/json',
       }
